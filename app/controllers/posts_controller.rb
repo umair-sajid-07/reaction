@@ -1,14 +1,15 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy] 
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user!, only: [:edit, :update, :destroy] 
+  before_action :authenticate_user!, only: %i[new create edit update destroy]
+  before_action :set_post, only: %i[show edit update destroy]
+  before_action :authorize_user!, only: %i[edit update destroy]
 
   def index
     @posts = Post.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @post = Post.new
@@ -23,8 +24,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @post.update(post_params)
@@ -50,8 +50,8 @@ class PostsController < ApplicationController
   end
 
   def authorize_user!
-    unless @post.user == current_user
-      redirect_to root_path, alert: "You are not authorized to perform this action."
-    end
+    return if @post.user == current_user
+
+    redirect_to root_path, alert: 'You are not authorized to perform this action.'
   end
 end
