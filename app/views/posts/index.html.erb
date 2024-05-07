@@ -9,6 +9,7 @@
   <% end %>
 </ul>
 <%= link_to "New Post", new_post_path %>
+<%= button_to "Sign out", destroy_user_session_path, method: :delete %>
 <% else %>
 <%= button_to "Sign in", new_user_session_path %>
 <% end %>

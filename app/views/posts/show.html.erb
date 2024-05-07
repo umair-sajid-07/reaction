@@ -16,6 +16,7 @@
                   method: :delete,
                   data: { confirm: "Are you sure?" } %></li>
 </ul>
+<%= button_to "Sign out", destroy_user_session_path, method: :delete %>
 <% else %>
   <!-- Content to display when user is not signed in -->
   <%= button_to "Sign in", new_user_session_path %>
