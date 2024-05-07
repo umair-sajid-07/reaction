@@ -11,16 +11,14 @@
   </p>
 
   <h2>Comments</h2>
-  <% @post.comments.each do |comment| %>
-    <div>
-      <p><strong><%= comment.user.email %>:</strong> <%= comment.body %></p>
-    </div>
-  <% end %>
+  <div id="comments" data-post-id="<%= @post.id %>" data-comments-url="<%= post_comments_path(@post) %>">
+    <%= render partial: 'comments', locals: { comments: @post.comments, post: @post } %>
+  </div>
 
   <%= form_with(model: [@post, @post.comments.build], local: true) do |form| %>
     <div class="field">
-      <%= form.label :content %>
-      <%= form.text_area :content %>
+      <%= form.label :body %>
+      <%= form.text_area :body %>
     </div>
     <div class="actions">
       <%= form.submit "Add Comment" %>

@@ -27,6 +27,7 @@ gem 'turbolinks', '~> 5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem "devise" 
+gem 'jquery-rails', '~> 4.4'
 
 
 group :development, :test do
