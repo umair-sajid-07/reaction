@@ -1,2 +1,6 @@
+<% if user_signed_in? %>
 <h1>Edit Post</h1>
 <%= render "form", article: @article %>
+<% else %>
+  <%= button_to "Sign in", new_user_session_path %>
+<% end %>

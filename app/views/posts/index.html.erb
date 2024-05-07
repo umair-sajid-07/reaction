@@ -1,3 +1,4 @@
+<% if user_signed_in? %>
 <h1> POST on REACTION </h1>
 <ul>
   <% @posts.each do |post| %>
@@ -8,3 +9,6 @@
   <% end %>
 </ul>
 <%= link_to "New Post", new_post_path %>
+<% else %>
+<%= button_to "Sign in", new_user_session_path %>
+<% end %>

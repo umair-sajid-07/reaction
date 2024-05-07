@@ -1,3 +1,4 @@
+<% if user_signed_in? %>
 <h1><%= @post.title %></h1>
 <p><%= @post.body %></p>
 <p><%= @post.created_at %></p>
@@ -15,3 +16,7 @@
                   method: :delete,
                   data: { confirm: "Are you sure?" } %></li>
 </ul>
+<% else %>
+  <!-- Content to display when user is not signed in -->
+  <%= button_to "Sign in", new_user_session_path %>
+<% end %>
