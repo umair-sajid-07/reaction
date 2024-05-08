@@ -3,18 +3,18 @@
   <p><%= @post.body %></p>
   <p><%= @post.created_at %></p>
   <p>
-    <% if @post.status %>
-      Post is Public
-    <% else %>
-      Post is Private
-    <% end %>
+    <%= @post.status ? "Post is Public" : "Post is Private" %>
   </p>
 
-  <h2>Comments</h2>
-  <div id="comments" data-post-id="<%= @post.id %>" data-comments-url="<%= post_comments_path(@post) %>">
-    <%= render partial: 'comments', locals: { comments: @post.comments, post: @post } %>
-  </div>
+<h2>Comments</h2>
+<div id="comments" data-post-id="<%= @post.id %>" data-comments-url="<%= post_comments_path(@post) %>">
+  <% @post.comments.includes(:user).where(parent_comment_id: nil).order(id: :desc).each do |comment| %>
+    <%= render partial: 'posts/comments', locals: { comment: comment, parent: nil} %>
+  <% end %>
+</div>
 
+  <h1> Reply to Post </h1>
+    <div >
   <%= form_with(model: [@post, @post.comments.build], local: true) do |form| %>
     <div class="field">
       <%= form.label :body %>
@@ -24,14 +24,15 @@
       <%= form.submit "Add Comment" %>
     </div>
   <% end %>
+  </div>
 
   <ul>
     <li><%= link_to "Edit", edit_post_path(@post) %></li>
     <li><%= link_to "Destroy", post_path(@post),
                     method: :delete,
                     data: { confirm: "Are you sure?" } %></li>
+    <li><%= button_to "Sign out", destroy_user_session_path, method: :delete %></li>
   </ul>
-  <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
 <% else %>
   <%= button_to "Sign in", new_user_session_path %>
 <% end %>

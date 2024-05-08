@@ -1,5 +1,12 @@
-<% comments.each do |comment| %>
-  <div class="comment">
-    <p><strong><%= comment.user.email %>:</strong> <%= comment.body %></p>
-  </div>
+<article>
+  <p><%= comment.body %></p>
+  <small>by <%= comment.user.email %></small>
+  <hr />
+  <div class="sub-comment" style="margin-left: 20px;">
+<%= render partial: 'posts/reply', locals: { parent: parent } %>
+  <% @post.comments.where(parent_comment_id: comment.id).includes(:user).each do |child_comment| %>
+  <%= render partial: 'posts/comments', locals: { comment: child_comment, parent: comment } %>
 <% end %>
+</div>
+</article>
+

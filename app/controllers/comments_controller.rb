@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!, only: %i[create destroy]
 
   def create
+    debugger
     @post = Post.find(params[:post_id])
     @parent_comment = @post.comments.find_by(id: params[:parent_comment_id])
     @comment = @parent_comment ? @parent_comment.replies.build(comment_params) : @post.comments.build(comment_params)

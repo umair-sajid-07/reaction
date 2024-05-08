@@ -1,0 +1,12 @@
+<%= form_with(model: [@post, @post.comments.build], local: true) do |form| %>
+  <% if !parent.nil? %>
+    <input type="hidden" name="comment[parent_comment_id]" id="" value="<%= parent.id %>">
+  <% end %>
+  <div class="field">
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+  </div>
+  <div class="actions">
+    <%= form.submit "Add Comment" %>
+  </div>
+<% end %>
